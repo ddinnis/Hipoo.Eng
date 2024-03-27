@@ -1,4 +1,4 @@
-﻿namespace IdentityService.Domain.Entities
+﻿namespace IdentityService.Domain
 {
     internal interface ISoftDelete
     {

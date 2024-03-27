@@ -3,8 +3,14 @@ using IdentityService.Domain;
 using IdentityService.Infrastructure;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Options;
+using Microsoft.AspNetCore.Mvc;
+using System.Text.Json.Serialization;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using JsonOptions = Microsoft.AspNetCore.Http.Json.JsonOptions;
+using Serilog;
+using Microsoft.AspNetCore.Builder;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -40,6 +46,7 @@ builder.Services.Configure<IdentityOptions>(options =>
     options.Tokens.EmailConfirmationTokenProvider = TokenOptions.DefaultEmailProvider;
 });
 
+// 注入 JWTOptions
 builder.Services.Configure<JWTOptions>(builder.Configuration.GetSection("JWT"));
 
 // 先验证
@@ -61,6 +68,29 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 // 再授权
 builder.Services.AddAuthorization();
 builder.Services.AddScoped<IIdentityRepository, IdentityRepository>();
+builder.Services.AddScoped<ITokenService, TokenService>();
+
+// 配置时间格式
+builder.Services.AddControllers().AddJsonOptions(options =>
+{
+    options.JsonSerializerOptions.Converters.Add(new DateTimeJsonConverter("yyyy-MM-dd HH:mm:ss"));
+});
+
+string[] urls = new[] { "http://localhost:3000" };// 前端的url
+builder.Services.AddCors(options =>
+    options.AddDefaultPolicy(builder => builder.WithOrigins(urls)
+  .AllowAnyMethod().AllowAnyHeader().AllowCredentials())
+);
+
+builder.Services.AddLogging(builder =>
+{
+    Log.Logger = new LoggerConfiguration()
+    .WriteTo.Console()
+    .WriteTo.File("d:/temp/FileService.log")
+    .CreateLogger();
+    builder.AddSerilog();
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -73,6 +103,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseCors();
 
 app.UseAuthentication();
 app.UseAuthorization();
