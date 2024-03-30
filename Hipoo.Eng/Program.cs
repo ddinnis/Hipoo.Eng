@@ -3,14 +3,16 @@ using IdentityService.Domain;
 using IdentityService.Infrastructure;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Options;
-using Microsoft.AspNetCore.Mvc;
-using System.Text.Json.Serialization;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
-using JsonOptions = Microsoft.AspNetCore.Http.Json.JsonOptions;
 using Serilog;
-using Microsoft.AspNetCore.Builder;
+using IdentityService.Infrastructure.Service;
+using Microsoft.EntityFrameworkCore;
+using FluentValidation.AspNetCore;
+using FluentValidation;
+using IdentityService.WebAPI.Controller.Login;
+using IdentityService.Domain.Entities;
+using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,6 +23,13 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen( opt => {
     opt.SwaggerDoc("v1", new() { Title = "IdentityService.WebAPI", Version = "v1" });
+});
+
+builder.Services.AddDbContext<IdDbContext>(opt =>
+{
+    var configRoot = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
+    var connStr = configRoot["ConnectionString"];
+    opt.UseSqlServer(connStr);
 });
 
 builder.Services.Configure<IdentityOptions>(options =>
@@ -46,6 +55,11 @@ builder.Services.Configure<IdentityOptions>(options =>
     options.Tokens.EmailConfirmationTokenProvider = TokenOptions.DefaultEmailProvider;
 });
 
+// FluentValidation
+builder.Services.AddFluentValidationAutoValidation();
+builder.Services.AddFluentValidationClientsideAdapters();
+builder.Services.AddValidatorsFromAssemblyContaining<ChangeMyPasswordRequest>();
+
 // 注入 JWTOptions
 builder.Services.Configure<JWTOptions>(builder.Configuration.GetSection("JWT"));
 
@@ -54,7 +68,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 .AddJwtBearer(x =>
 {
     var jwtOpt = builder.Configuration.GetSection("JWT").Get<JWTOptions>();
-    byte[] keyBytes = Encoding.UTF8.GetBytes(jwtOpt.SigningKey);
+    byte[] keyBytes = Encoding.UTF8.GetBytes(jwtOpt!.SigningKey);
     var secKey = new SymmetricSecurityKey(keyBytes);
     x.TokenValidationParameters = new()
     {
@@ -67,8 +81,29 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 });
 // 再授权
 builder.Services.AddAuthorization();
+
+
 builder.Services.AddScoped<IIdentityRepository, IdentityRepository>();
+builder.Services.AddScoped<IdentityDomainService>();
 builder.Services.AddScoped<ITokenService, TokenService>();
+
+builder.Services.AddDataProtection();
+
+// Identity 框架
+builder.Services.AddIdentityCore<User>(options => {    //注意不是AddIdentity
+    options.Password.RequireDigit = false;
+    options.Password.RequireLowercase = false;
+    options.Password.RequireNonAlphanumeric = false;
+    options.Password.RequireUppercase = false;
+    options.Password.RequiredLength = 6;
+    options.Tokens.PasswordResetTokenProvider = TokenOptions.DefaultEmailProvider;
+    options.Tokens.EmailConfirmationTokenProvider = TokenOptions.DefaultEmailProvider;
+});
+
+var idBuilder = new IdentityBuilder(typeof(User), typeof(Role), builder.Services);
+idBuilder.AddEntityFrameworkStores<IdDbContext>()
+    .AddDefaultTokenProviders().AddRoleManager<RoleManager<Role>>()
+    .AddUserManager<IdentityUserManager>();
 
 // 配置时间格式
 builder.Services.AddControllers().AddJsonOptions(options =>
@@ -91,6 +126,44 @@ builder.Services.AddLogging(builder =>
     builder.AddSerilog();
 });
 
+
+builder.Services.AddSwaggerGen(s =>
+{
+    //添加安全定义
+    s.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    {
+        Description = "请输入token,格式为 Bearer xxxxxxxx（注意中间必须有空格）",
+        Name = "Authorization",
+        In = ParameterLocation.Header,
+        Type = SecuritySchemeType.ApiKey,
+        BearerFormat = "JWT",
+        Scheme = "Bearer"
+    });
+    //添加安全要求
+    s.AddSecurityRequirement(new OpenApiSecurityRequirement {
+        {
+            new OpenApiSecurityScheme{
+                Reference =new OpenApiReference{
+                    Type = ReferenceType.SecurityScheme,
+                    Id ="Bearer"
+                }
+            },new string[]{ }
+        }
+    });
+});
+builder.Services.AddHttpClient();
+
+
+if (builder.Environment.IsDevelopment())
+{
+    builder.Services.AddScoped<IEmailSender, MockEmailSender>();
+    builder.Services.AddScoped<ISmsSender, MockSmsSender>();
+}
+else
+{
+    builder.Services.AddScoped<IEmailSender, SendCloudEmailSender>();
+    builder.Services.AddScoped<ISmsSender, SendCloudSmsSender>();
+}
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -104,6 +177,8 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseCors();
+// 会检查入站请求的指定转发头部，并根据这些头部来更新HttpContext中的相关字段，如请求方案（HttpContext.Request.Scheme）和远程IP地址（HttpContext.Connection.RemoteIpAddress）
+app.UseForwardedHeaders();
 
 app.UseAuthentication();
 app.UseAuthorization();
