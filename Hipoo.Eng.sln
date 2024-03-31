@@ -6,21 +6,22 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityService.WebAPI", "Hipoo.Eng\IdentityService.WebAPI.csproj", "{C3A58A21-9C49-4C8A-B256-8C2DF5B61CB5}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Commons", "Commons", "{84A2AF24-B086-47BC-AEDA-0139D7402615}"
-	ProjectSection(SolutionItems) = preProject
-		Hipoo.Eng\GlobalUsings.cs = Hipoo.Eng\GlobalUsings.cs
-	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IdentityService", "IdentityService", "{9246C2B7-2346-41AC-94AF-087A0D7570D8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentityService.Infrastructure", "IdentityService.Infrastructure\IdentityService.Infrastructure.csproj", "{234B6BF8-D520-4551-87B9-B00EF73C8950}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityService.Infrastructure", "IdentityService.Infrastructure\IdentityService.Infrastructure.csproj", "{234B6BF8-D520-4551-87B9-B00EF73C8950}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentityService.Domain", "IdentityService.WebAPI\IdentityService.Domain.csproj", "{5A6FD375-A60F-480A-8BAC-B52A2994D477}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityService.Domain", "IdentityService.WebAPI\IdentityService.Domain.csproj", "{5A6FD375-A60F-480A-8BAC-B52A2994D477}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common.JWT", "Common.JWT\Common.JWT.csproj", "{DDDEB035-A87D-494A-982B-0EBF56512D20}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Common.JWT", "Common.JWT\Common.JWT.csproj", "{DDDEB035-A87D-494A-982B-0EBF56512D20}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common.Infrastructure", "Common.Infrastructure\Common.Infrastructure.csproj", "{3ACCD798-698B-496F-9E8A-4CF46F4FC28A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Common.Infrastructure", "Common.Infrastructure\Common.Infrastructure.csproj", "{3ACCD798-698B-496F-9E8A-4CF46F4FC28A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common.Common", "Common.Common\Common.Common.csproj", "{0CFA38F2-219F-48B0-88B8-E77E2E5AFEF4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Common.Common", "Common.Common\Common.Common.csproj", "{0CFA38F2-219F-48B0-88B8-E77E2E5AFEF4}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CommonInitializer", "CommonInitializer\CommonInitializer.csproj", "{A616715F-B38E-482D-949F-B3AF59C6E1B1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common.EventBus", "Common.EventBus\Common.EventBus.csproj", "{01E90028-2F91-457D-B026-53334A2409BA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -52,6 +53,14 @@ Global
 		{0CFA38F2-219F-48B0-88B8-E77E2E5AFEF4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0CFA38F2-219F-48B0-88B8-E77E2E5AFEF4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0CFA38F2-219F-48B0-88B8-E77E2E5AFEF4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A616715F-B38E-482D-949F-B3AF59C6E1B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A616715F-B38E-482D-949F-B3AF59C6E1B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A616715F-B38E-482D-949F-B3AF59C6E1B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A616715F-B38E-482D-949F-B3AF59C6E1B1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{01E90028-2F91-457D-B026-53334A2409BA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{01E90028-2F91-457D-B026-53334A2409BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{01E90028-2F91-457D-B026-53334A2409BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{01E90028-2F91-457D-B026-53334A2409BA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -63,6 +72,8 @@ Global
 		{DDDEB035-A87D-494A-982B-0EBF56512D20} = {84A2AF24-B086-47BC-AEDA-0139D7402615}
 		{3ACCD798-698B-496F-9E8A-4CF46F4FC28A} = {84A2AF24-B086-47BC-AEDA-0139D7402615}
 		{0CFA38F2-219F-48B0-88B8-E77E2E5AFEF4} = {84A2AF24-B086-47BC-AEDA-0139D7402615}
+		{A616715F-B38E-482D-949F-B3AF59C6E1B1} = {84A2AF24-B086-47BC-AEDA-0139D7402615}
+		{01E90028-2F91-457D-B026-53334A2409BA} = {84A2AF24-B086-47BC-AEDA-0139D7402615}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {00C94158-962A-48B5-BD89-E014BCD12F3B}
