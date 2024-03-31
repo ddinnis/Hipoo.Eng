@@ -193,6 +193,24 @@ namespace IdentityService.Infrastructure
             await _userManager.UpdateAsync(user);
         }
 
+
+        public async Task<(IdentityResult, User?, string? password)> ResetAdminUserPassword(Guid id)
+        {
+            var user = await FindByIdAsync(id);
+            if (user == null)
+            {
+                return (ErrorResult("用户没找到"), null, null);
+            }
+            string password = GeneratePassword();
+            string token = await _userManager.GeneratePasswordResetTokenAsync(user);
+            var result = await _userManager.ResetPasswordAsync(user, token, password);
+            if (!result.Succeeded)
+            {
+                return (result, null, null);
+            }
+            return (IdentityResult.Success, user, password);
+        }
+
         private string GeneratePassword()
         {
             var option = _userManager.Options.Password;

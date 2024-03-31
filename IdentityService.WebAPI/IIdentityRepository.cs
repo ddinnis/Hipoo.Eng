@@ -22,7 +22,7 @@ namespace IdentityService.Domain
         Task<IdentityResult> RemoveUserAsync(Guid id);
 
         Task<(IdentityResult,User?,string? password)> AddAdminUserAsync(string userName,string phoneNum);
-        //Task<(IdentityResult, User?, string? password)> RestPasswordAsync(Guid id);
-
+        // Task ResetPasswordAsync(Guid id);
+        Task<(IdentityResult, User?, string? password)> ResetAdminUserPassword(Guid id);
     }
 }

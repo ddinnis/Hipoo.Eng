@@ -13,6 +13,9 @@ using FluentValidation;
 using IdentityService.WebAPI.Controller.Login;
 using IdentityService.Domain.Entities;
 using Microsoft.OpenApi.Models;
+using System;
+using Microsoft.Extensions.DependencyInjection;
+using IdentityService.WebAPI.Event;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,10 +28,12 @@ builder.Services.AddSwaggerGen( opt => {
     opt.SwaggerDoc("v1", new() { Title = "IdentityService.WebAPI", Version = "v1" });
 });
 
+IConfigurationRoot? configRoot = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
+
+
+var connStr = configRoot["ConnectionString"];
 builder.Services.AddDbContext<IdDbContext>(opt =>
 {
-    var configRoot = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
-    var connStr = configRoot["ConnectionString"];
     opt.UseSqlServer(connStr);
 });
 
@@ -152,6 +157,23 @@ builder.Services.AddSwaggerGen(s =>
     });
 });
 builder.Services.AddHttpClient();
+
+// RabbitMQ
+builder.Services.AddCap(x =>
+{
+    var HostName = configRoot.GetSection("RabbitMQ")["HostName"];
+    var ExchangeName = configRoot.GetSection("RabbitMQ")["ExchangeName"];
+    x.UseEntityFramework<IdDbContext>();  //可选项，你不需要再次配置 x.UseSqlServer 了
+    x.UseSqlServer(connStr);
+    x.UseRabbitMQ(o =>
+    {
+        o.HostName = HostName;
+        o.ExchangeName = ExchangeName;
+    });
+    x.UseDashboard();
+});
+builder.Services.AddTransient<ResetPasswordEventHandler>();
+builder.Services.AddTransient<UserCreatedEventHandler>();
 
 
 if (builder.Environment.IsDevelopment())
