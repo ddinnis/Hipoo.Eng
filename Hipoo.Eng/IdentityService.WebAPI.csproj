@@ -28,6 +28,8 @@
     <ProjectReference Include="..\Common.Infrastructure\Common.Infrastructure.csproj" />
     <ProjectReference Include="..\Common.JWT\Common.JWT.csproj" />
     <ProjectReference Include="..\CommonInitializer\CommonInitializer.csproj" />
+    <ProjectReference Include="..\FileService.Domain\FileService.Domain.csproj" />
+    <ProjectReference Include="..\FileService.Infrastructure\FileService.Infrastructure.csproj" />
     <ProjectReference Include="..\IdentityService.Infrastructure\IdentityService.Infrastructure.csproj" />
     <ProjectReference Include="..\IdentityService.WebAPI\IdentityService.Domain.csproj" />
   </ItemGroup>

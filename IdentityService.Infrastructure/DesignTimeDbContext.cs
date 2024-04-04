@@ -1,6 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using CommonInitializer;
+using MediatR;
 using Microsoft.EntityFrameworkCore.Design;
-using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
 
 namespace IdentityService.Infrastructure
 {
@@ -8,10 +9,7 @@ namespace IdentityService.Infrastructure
     {
         public IdDbContext CreateDbContext(string[] args)
         {
-            var optionsBuilder = new DbContextOptionsBuilder<IdDbContext>();
-            string connStr = "Server=LAPTOP-1H2QHK1H\\SQLEXPRESS;Database=VNextDB;Trusted_Connection=True;MultipleActiveResultSets=true;TrustServerCertificate=true";
-            optionsBuilder.UseSqlServer(connStr);
-
+            var optionsBuilder =  DbContextOptionsBuilderFactory.Create<IdDbContext>();
             return new IdDbContext(optionsBuilder.Options);
         }
     }

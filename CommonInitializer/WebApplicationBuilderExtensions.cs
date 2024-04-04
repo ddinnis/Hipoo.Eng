@@ -1,25 +1,20 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Builder;
 using Common.Common;
 using FluentValidation.AspNetCore;
-//using MediatR;
-using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 using StackExchange.Redis;
 using Swashbuckle.AspNetCore.SwaggerGen;
-using System.Data.SqlClient;
 using Commons.Commons;
 using Common.JWT;
 using Commons.JWT;
-using Common.EventBus;
+using Common.ASPNETCore;
+using MediatR;
+
 
 namespace CommonInitializer
 {
@@ -52,12 +47,13 @@ namespace CommonInitializer
             });
 
 
-            ///services.AddMediatR(assemblies);
+            services.AddMyCustomMediatR(assemblies);
 
-            //services.Configure<MvcOptions>(options =>
-            //{
-            //    options.Filters.Add<UnitOfWorkFilter>();
-            //});
+            services.Configure<MvcOptions>(options =>
+            {
+                options.Filters.Add<UnitOfWorkFilter>();
+            });
+
             //在ASP.NET Core的配置中修改JSON序列化选项，特别是关于日期时间格式的自定义
             services.Configure<JsonOptions>(options =>
             {

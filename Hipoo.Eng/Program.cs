@@ -34,14 +34,6 @@ builder.Services.AddSwaggerGen( opt => {
     opt.SwaggerDoc("v1", new() { Title = "IdentityService.WebAPI", Version = "v1" });
 });
 
-//IConfigurationRoot? configRoot = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
-
-
-//var connStr = configRoot["ConnectionString"];
-//builder.Services.AddDbContext<IdDbContext>(opt =>
-//{
-//    opt.UseSqlServer(connStr);
-//});
 
 builder.Services.Configure<IdentityOptions>(options =>
 {
@@ -66,38 +58,6 @@ builder.Services.Configure<IdentityOptions>(options =>
     options.Tokens.EmailConfirmationTokenProvider = TokenOptions.DefaultEmailProvider;
 });
 
-// FluentValidation
-//builder.Services.AddFluentValidationAutoValidation();
-//builder.Services.AddFluentValidationClientsideAdapters();
-//builder.Services.AddValidatorsFromAssemblyContaining<ChangeMyPasswordRequest>();
-
-// 注入 JWTOptions
-//builder.Services.Configure<JWTOptions>(builder.Configuration.GetSection("JWT"));
-
-// 先验证
-//builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-//.AddJwtBearer(x =>
-//{
-//    var jwtOpt = builder.Configuration.GetSection("JWT").Get<JWTOptions>();
-//    byte[] keyBytes = Encoding.UTF8.GetBytes(jwtOpt!.SigningKey);
-//    var secKey = new SymmetricSecurityKey(keyBytes);
-//    x.TokenValidationParameters = new()
-//    {
-//        ValidateIssuer = false,
-//        ValidateAudience = false,
-//        ValidateLifetime = true,
-//        ValidateIssuerSigningKey = true,
-//        IssuerSigningKey = secKey
-//    };
-//});
-// 再授权
-//builder.Services.AddAuthorization();
-
-
-//builder.Services.AddScoped<IIdentityRepository, IdentityRepository>();
-//builder.Services.AddScoped<IdentityDomainService>();
-//builder.Services.AddScoped<ITokenService, TokenService>();
-
 builder.Services.AddDataProtection();
 
 // Identity 框架
@@ -116,68 +76,7 @@ idBuilder.AddEntityFrameworkStores<IdDbContext>()
     .AddDefaultTokenProviders().AddRoleManager<RoleManager<Role>>()
     .AddUserManager<IdentityUserManager>();
 
-// 配置时间格式
-//builder.Services.AddControllers().AddJsonOptions(options =>
-//{
-//    options.JsonSerializerOptions.Converters.Add(new DateTimeJsonConverter("yyyy-MM-dd HH:mm:ss"));
-//});
-
-//string[] urls = new[] { "http://localhost:3000" };// 前端的url
-//builder.Services.AddCors(options =>
-//    options.AddDefaultPolicy(builder => builder.WithOrigins(urls)
-//  .AllowAnyMethod().AllowAnyHeader().AllowCredentials())
-//);
-
-//builder.Services.AddLogging(builder =>
-//{
-//    Log.Logger = new LoggerConfiguration()
-//    .WriteTo.Console()
-//    .WriteTo.File("d:/temp/FileService.log")
-//    .CreateLogger();
-//    builder.AddSerilog();
-//});
-
-
-//builder.Services.AddSwaggerGen(s =>
-//{
-//    //添加安全定义
-//    s.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
-//    {
-//        Description = "请输入token,格式为 Bearer xxxxxxxx（注意中间必须有空格）",
-//        Name = "Authorization",
-//        In = ParameterLocation.Header,
-//        Type = SecuritySchemeType.ApiKey,
-//        BearerFormat = "JWT",
-//        Scheme = "Bearer"
-//    });
-//    //添加安全要求
-//    s.AddSecurityRequirement(new OpenApiSecurityRequirement {
-//        {
-//            new OpenApiSecurityScheme{
-//                Reference =new OpenApiReference{
-//                    Type = ReferenceType.SecurityScheme,
-//                    Id ="Bearer"
-//                }
-//            },new string[]{ }
-//        }
-//    });
-//});
 builder.Services.AddHttpClient();
-
-// RabbitMQ
-//builder.Services.AddCap(x =>
-//{
-//    var HostName = configRoot.GetSection("RabbitMQ")["HostName"];
-//    var ExchangeName = configRoot.GetSection("RabbitMQ")["ExchangeName"];
-//    x.UseEntityFramework<IdDbContext>();  //可选项，你不需要再次配置 x.UseSqlServer 了
-//    x.UseSqlServer(connStr);
-//    x.UseRabbitMQ(o =>
-//    {
-//        o.HostName = HostName;
-//        o.ExchangeName = ExchangeName;
-//    });
-//    x.UseDashboard();
-//});
 builder.Services.AddTransient<ResetPasswordEventHandler>();
 builder.Services.AddTransient<UserCreatedEventHandler>();
 
