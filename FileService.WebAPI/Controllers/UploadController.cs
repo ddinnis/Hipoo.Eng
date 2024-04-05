@@ -1,4 +1,4 @@
-using Common.ASPNETCore;
+ using Common.ASPNETCore;
 using FileService.Domain;
 using FileService.Infrastructure;
 using Microsoft.AspNetCore.Authorization;
@@ -15,9 +15,9 @@ namespace FileService.WebAPI.Controllers
     {
         private readonly FSDbContext _fSDbContext;
         private readonly FSDomainService _fSDomainService;
-        private readonly FSRepository _fsRepository;
+        private readonly IFSRepository _fsRepository;
 
-        public UploadController(FSDbContext fSDbContext, FSDomainService fSDomainService,FSRepository fSRepository)
+        public UploadController(FSDbContext fSDbContext, FSDomainService fSDomainService, IFSRepository fSRepository)
         {
             _fsRepository = fSRepository;
             _fSDbContext = fSDbContext;
@@ -49,7 +49,7 @@ namespace FileService.WebAPI.Controllers
             using Stream stream = file.OpenReadStream();
             var result = await _fSDomainService.UploadAsync(stream, fileName, cancellationToken);
             _fSDbContext.Add(result);
-            return result.RemoteUrl;
+            return result.BackupUrl;
         }
     }
 }

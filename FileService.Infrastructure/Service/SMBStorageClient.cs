@@ -20,18 +20,19 @@ namespace FileService.Infrastructure.Service
             }
             string workingDir = options.Value.WorkingDir;
             string fullPath = Path.Combine(workingDir, key);
-            string fullDir = Path.GetDirectoryName(fullPath);
-            if (!Directory.Exists(fullPath)) 
+            string? fullDir = Path.GetDirectoryName(fullPath);
+
+            if (!Directory.Exists(fullDir))
             {
-                Directory.CreateDirectory(fullPath);
+                Directory.CreateDirectory(fullDir);
             }
-            if (Directory.Exists(fullPath)) 
-            { 
-                File.Delete(fullPath); // 删除旧文件
+            if (File.Exists(fullPath))
+            {
+                File.Delete(fullPath);
             }
             using Stream stream = File.OpenWrite(fullPath);
-            await content.CopyToAsync(stream);
-            return new Uri("file://" + fullPath);
+            await content.CopyToAsync(stream, cancellationToken);
+            return new Uri(fullPath);
         }
     }
 }

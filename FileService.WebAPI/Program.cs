@@ -10,7 +10,7 @@ builder.ConfigureExtraServices(new InitializerOptions
     LogFilePath = "d:/temp/IdentityService.log"
 });
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(opt => {
     opt.SwaggerDoc("v1", new() { Title = "IdentityService.WebAPI", Version = "v1" });
@@ -35,9 +35,6 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseStaticFiles();
-// 在调用 UseAuthorization 之前调用 UseStaticFiles
-app.UseAuthorization();
-
 
 app.UseCors();//启用Cors
 app.UseForwardedHeaders();

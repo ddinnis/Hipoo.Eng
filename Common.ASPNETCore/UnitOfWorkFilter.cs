@@ -45,7 +45,7 @@ namespace Common.ASPNETCore
                 foreach (var dbCtxType in uowAttr.DbContextTypes)
                 {
                     var sp = context.HttpContext.RequestServices;
-                    DbContext dbCtx = sp.GetRequiredService<DbContext>();
+                    DbContext dbCtx = (DbContext)sp.GetRequiredService(dbCtxType);
                     dbCtxs.Add(dbCtx);
                 }
 

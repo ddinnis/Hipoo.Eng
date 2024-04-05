@@ -1,4 +1,5 @@
-﻿using FileService.Domain;
+﻿using Azure.Core;
+using FileService.Domain;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using System;
@@ -28,23 +29,26 @@ namespace FileService.Infrastructure.Service
             {
                 throw new ArgumentException("key should not start with /", nameof(key));
             }
-            string workingDir = Path.Combine(_webHostEnvironment.ContentRootPath,key);
-            string fullPath = Path.GetDirectoryName(workingDir);
+            //string workingDir = Path.Combine(_webHostEnvironment.ContentRootPath, "wwwroot");
+            string workingDir = Path.Combine(_webHostEnvironment.ContentRootPath, "wwwroot", "uploads");
+            string fullPath = Path.Combine(workingDir, key);
+            string? fullDir = Path.GetDirectoryName(fullPath); ;
 
-            if (!File.Exists(workingDir))
+            if (!File.Exists(fullDir))
             {
-                Directory.CreateDirectory(fullPath);
+                Directory.CreateDirectory(fullDir);
             }
-            else 
+            if (File.Exists(fullPath))
             {
                 File.Delete(fullPath);
             }
             using Stream stream = File.OpenWrite(fullPath);
-            await stream.CopyToAsync(content);
+            await content.CopyToAsync(stream, cancellationToken);
 
             var req = _httpContextAccessor.HttpContext.Request;
-            string url = req.Scheme + "://" + req.Host + "/FileService/" + key;
-            return new Uri(url);
+            //string url = req.Scheme + "://" + req.Host + "/FileService/" + key;
+            string fileUrl = $"{req.Scheme}://{req.Host}/uploads/{key}";
+            return new Uri(fileUrl);
         }
     }
 }
