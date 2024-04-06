@@ -21,19 +21,29 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Common.Common", "Common.Com
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CommonInitializer", "CommonInitializer\CommonInitializer.csproj", "{A616715F-B38E-482D-949F-B3AF59C6E1B1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common.EventBus", "Common.EventBus\Common.EventBus.csproj", "{01E90028-2F91-457D-B026-53334A2409BA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Common.EventBus", "Common.EventBus\Common.EventBus.csproj", "{01E90028-2F91-457D-B026-53334A2409BA}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FileService", "FileService", "{C737CCBA-CD33-49A6-8143-877DF699DF67}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileService.Domain", "FileService.Domain\FileService.Domain.csproj", "{752AB09C-8BBF-4DCF-9792-58D33E7250A0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FileService.Domain", "FileService.Domain\FileService.Domain.csproj", "{752AB09C-8BBF-4DCF-9792-58D33E7250A0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileService.Infrastructure", "FileService.Infrastructure\FileService.Infrastructure.csproj", "{E489CF54-9007-450C-BD7A-ADA01C31D153}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FileService.Infrastructure", "FileService.Infrastructure\FileService.Infrastructure.csproj", "{E489CF54-9007-450C-BD7A-ADA01C31D153}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileService.WebAPI", "FileService.WebAPI\FileService.WebAPI.csproj", "{F31F5A12-24B7-4C62-AB1C-B97A9E5158D8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FileService.WebAPI", "FileService.WebAPI\FileService.WebAPI.csproj", "{F31F5A12-24B7-4C62-AB1C-B97A9E5158D8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common.Domain", "Common.Domain\Common.Domain.csproj", "{BE30A971-1D18-4A45-8974-615F4EB582B4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Common.Domain", "Common.Domain\Common.Domain.csproj", "{BE30A971-1D18-4A45-8974-615F4EB582B4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common.ASPNETCore", "Common.ASPNETCore\Common.ASPNETCore.csproj", "{8B07488B-B957-4A23-8157-15F2DCE60556}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Common.ASPNETCore", "Common.ASPNETCore\Common.ASPNETCore.csproj", "{8B07488B-B957-4A23-8157-15F2DCE60556}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Listening", "Listening", "{EAECC975-BC05-4F28-A751-980A8D08A72C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Listening.Admin.WebAPI", "Listening.Admin.WebAPI\Listening.Admin.WebAPI.csproj", "{01307BF9-7781-46C1-B885-A65199BCF8DB}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Listening.Main.WebAPI", "Listening.Main.WebAPI\Listening.Main.WebAPI.csproj", "{843EB22E-719B-4F42-B819-ABC47C3DAC88}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Listening.Domain", "Listening.Domain\Listening.Domain.csproj", "{723482F3-A245-4F18-85BA-78D6EB99730C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Listening.Infrastructure", "Listening.Infrastructure\Listening.Infrastructure.csproj", "{8DA3F6D5-14A0-46D7-B237-49CC9EAC2B4A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -93,6 +103,22 @@ Global
 		{8B07488B-B957-4A23-8157-15F2DCE60556}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8B07488B-B957-4A23-8157-15F2DCE60556}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8B07488B-B957-4A23-8157-15F2DCE60556}.Release|Any CPU.Build.0 = Release|Any CPU
+		{01307BF9-7781-46C1-B885-A65199BCF8DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{01307BF9-7781-46C1-B885-A65199BCF8DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{01307BF9-7781-46C1-B885-A65199BCF8DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{01307BF9-7781-46C1-B885-A65199BCF8DB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{843EB22E-719B-4F42-B819-ABC47C3DAC88}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{843EB22E-719B-4F42-B819-ABC47C3DAC88}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{843EB22E-719B-4F42-B819-ABC47C3DAC88}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{843EB22E-719B-4F42-B819-ABC47C3DAC88}.Release|Any CPU.Build.0 = Release|Any CPU
+		{723482F3-A245-4F18-85BA-78D6EB99730C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{723482F3-A245-4F18-85BA-78D6EB99730C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{723482F3-A245-4F18-85BA-78D6EB99730C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{723482F3-A245-4F18-85BA-78D6EB99730C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8DA3F6D5-14A0-46D7-B237-49CC9EAC2B4A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8DA3F6D5-14A0-46D7-B237-49CC9EAC2B4A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8DA3F6D5-14A0-46D7-B237-49CC9EAC2B4A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8DA3F6D5-14A0-46D7-B237-49CC9EAC2B4A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -111,6 +137,10 @@ Global
 		{F31F5A12-24B7-4C62-AB1C-B97A9E5158D8} = {C737CCBA-CD33-49A6-8143-877DF699DF67}
 		{BE30A971-1D18-4A45-8974-615F4EB582B4} = {84A2AF24-B086-47BC-AEDA-0139D7402615}
 		{8B07488B-B957-4A23-8157-15F2DCE60556} = {84A2AF24-B086-47BC-AEDA-0139D7402615}
+		{01307BF9-7781-46C1-B885-A65199BCF8DB} = {EAECC975-BC05-4F28-A751-980A8D08A72C}
+		{843EB22E-719B-4F42-B819-ABC47C3DAC88} = {EAECC975-BC05-4F28-A751-980A8D08A72C}
+		{723482F3-A245-4F18-85BA-78D6EB99730C} = {EAECC975-BC05-4F28-A751-980A8D08A72C}
+		{8DA3F6D5-14A0-46D7-B237-49CC9EAC2B4A} = {EAECC975-BC05-4F28-A751-980A8D08A72C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {00C94158-962A-48B5-BD89-E014BCD12F3B}

@@ -32,7 +32,7 @@ namespace FileService.Infrastructure.Service
             }
             using Stream stream = File.OpenWrite(fullPath);
             await content.CopyToAsync(stream, cancellationToken);
-            return new Uri(fullPath);
+            return new Uri("file://" + fullPath);
         }
     }
 }

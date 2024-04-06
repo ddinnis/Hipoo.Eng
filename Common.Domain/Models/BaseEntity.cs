@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Common.Domain.Models
 {
-    public class BaseEntity : IEntity, IDomainEvents
+    public record BaseEntity : IEntity, IDomainEvents
     {
         public Guid Id { get; protected set; } = Guid.NewGuid();
 

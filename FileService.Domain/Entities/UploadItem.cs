@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace FileService.Domain.Entities
 {
-    public class UploadedItem : BaseEntity
+    public record UploadedItem : BaseEntity
     {
         public DateTime CreationTime { get; private set; }
         /// <summary>
