@@ -10,4 +10,10 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Common.ASPNETCore\Common.ASPNETCore.csproj" />
+    <ProjectReference Include="..\Common.Common\Common.Common.csproj" />
+    <ProjectReference Include="..\Listening.Domain\Listening.Domain.csproj" />
+  </ItemGroup>
+
 </Project>

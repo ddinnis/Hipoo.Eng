@@ -45,19 +45,34 @@ namespace Listening.Infrastructure
 
         public async Task<int> GetMaxSeqOfAlbumsAsync(Guid categoryId)
         {
-            return await _dbContext.Set<Album>().AsNoTracking().
-                Where(x => x.CategoryId == categoryId)
-                .MaxAsync(x => x.SequenceNumber);
+            var maxSequenceNumber = await _dbContext.Set<Album>()
+                .AsNoTracking()
+                .Where(x => x.CategoryId == categoryId)
+                .Select(x => (int?)x.SequenceNumber) 
+                .DefaultIfEmpty() // 为空序列提供默认值 null
+                .MaxAsync(); // 如果序列为空，则 MaxAsync 返回 null，而不是抛出异常
+          
+            return maxSequenceNumber ?? 0; 
         }
 
         public async Task<int> GetMaxSeqOfCategoriesAsync()
         {
+            var hasCategories = await _dbContext.Set<Category>().AnyAsync();
+            if (!hasCategories)
+            {
+                // 如果没有任何Category实体，则返回默认序列号0
+                return 0;
+            }
             return await _dbContext.Set<Category>().MaxAsync(x => x.SequenceNumber);
         }
 
         public async Task<int> GetMaxSeqOfEpisodesAsync(Guid albumId)
         {
-            return await _dbContext.Set<Episode>().Where(x=>x.AlbumId == albumId).MaxAsync(x => x.SequenceNumber);
+            var maxSequenceNumber =  await _dbContext.Set<Episode>().AsNoTracking().Where(x=>x.AlbumId == albumId)
+                .Select(x => (int?)x.SequenceNumber)
+                .DefaultIfEmpty()
+                .MaxAsync();
+            return maxSequenceNumber ?? 0;
         }
     }
 }

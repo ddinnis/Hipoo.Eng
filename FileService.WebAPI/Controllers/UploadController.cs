@@ -49,7 +49,7 @@ namespace FileService.WebAPI.Controllers
             using Stream stream = file.OpenReadStream();
             var result = await _fSDomainService.UploadAsync(stream, fileName, cancellationToken);
             _fSDbContext.Add(result);
-            return result.BackupUrl;
+            return result.RemoteUrl;
         }
     }
 }

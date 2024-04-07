@@ -1,5 +1,6 @@
 ﻿using Commons.Commons;
 using Listening.Domain;
+using Listening.Infrastructure;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace IdentityService.Infrastructure
@@ -9,6 +10,9 @@ namespace IdentityService.Infrastructure
         public void Initialize(IServiceCollection services)
         {
             services.AddScoped<ListeningDomainService>();
+            services.AddScoped<IListeningRepository, ListeningRepository>();
+
+
         }
     }
 }
