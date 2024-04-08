@@ -1,5 +1,6 @@
 using CommonInitializer;
 using Listening.Admin.WebAPI;
+using Listening.Admin.WebAPI.Hubs;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -31,7 +32,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Listening.Admin.WebAPI v1"));
 }
-//app.MapHub<EpisodeEncodingStatusHub>("/Hubs/EpisodeEncodingStatusHub");
+app.MapHub<EpisodeEncodingStatusHub>("/Hubs/EpisodeEncodingStatusHub");
 
 app.UseHttpsRedirection();
 app.MapControllers();

@@ -1,6 +1,5 @@
 ﻿using Microsoft.Extensions.Caching.Memory;
 using System.Collections;
-using Zack.ASPNETCore;
 using Common.Common;
 namespace Common.ASPNETCore
 {

@@ -1,7 +1,6 @@
-﻿using DotNetCore.CAP;
+﻿using Common.EventBus;
+using DotNetCore.CAP;
 using IdentityService.Domain;
-using IdentityService.Infrastructure.Service;
-using IdentityService.WebAPI.Events;
 
 namespace IdentityService.WebAPI.Event
 {

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IdentityService.Infrastructure.Service
+namespace Common.EventBus
 {
     public interface ISubscriberService<T>
     {

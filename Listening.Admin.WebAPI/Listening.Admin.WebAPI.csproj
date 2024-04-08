@@ -21,6 +21,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Common.ASPNETCore\Common.ASPNETCore.csproj" />
+    <ProjectReference Include="..\Common.EventBus\Common.EventBus.csproj" />
     <ProjectReference Include="..\Common.Infrastructure\Common.Infrastructure.csproj" />
     <ProjectReference Include="..\Listening.Domain\Listening.Domain.csproj" />
     <ProjectReference Include="..\Listening.Infrastructure\Listening.Infrastructure.csproj" />

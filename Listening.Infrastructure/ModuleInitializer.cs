@@ -11,8 +11,6 @@ namespace IdentityService.Infrastructure
         {
             services.AddScoped<ListeningDomainService>();
             services.AddScoped<IListeningRepository, ListeningRepository>();
-
-
         }
     }
 }

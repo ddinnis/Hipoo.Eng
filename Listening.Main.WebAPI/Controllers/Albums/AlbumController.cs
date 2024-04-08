@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Common.ASPNETCore;
 using Common.Common;
-using Listening.Domain.Entities;
 
 namespace Listening.Main.WebAPI.Controllers.Albums
 {
@@ -12,7 +11,6 @@ namespace Listening.Main.WebAPI.Controllers.Albums
     {
         private readonly IListeningRepository _repository;
         private readonly IMemoryCacheHelper _cacheHelper; 
-
         public AlbumController(IListeningRepository listeningRepository,IMemoryCacheHelper memoryCacheHelper)
         {
             _cacheHelper = memoryCacheHelper;
