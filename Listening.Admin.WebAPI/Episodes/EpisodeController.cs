@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 
 namespace Listening.Admin.WebAPI.Episodes;
-[Route("[controller]/[action]")]
+[Route("Admin[controller]/[action]")]
 [ApiController]
 [Authorize(Roles = "Admin")]
 [UnitOfWork(typeof(ListeningDbContext))]
@@ -105,10 +105,18 @@ public class EpisodeController : ControllerBase
         foreach (Guid episodeId in episodeIds)
         {
             var encodingEpisode = await encodingEpisodeHelper.GetEncodingEpisodeAsync(episodeId);
-            if (!encodingEpisode.Status.Equals("Completed", StringComparison.OrdinalIgnoreCase))//不显示已经完成的
+            if (encodingEpisode != null)
             {
-                list.Add(encodingEpisode);
+                if (!encodingEpisode.Status.Equals("Completed", StringComparison.OrdinalIgnoreCase))//不显示已经完成的
+                {
+                    list.Add(encodingEpisode);
+                }
             }
+            else 
+            {
+                return NotFound($"No encoding episode found for episode ID {episodeId}.");
+            }
+            
         }
         return list.ToArray();
     }

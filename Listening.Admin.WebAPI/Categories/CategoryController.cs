@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 
 namespace Listening.Admin.WebAPI.Categories;
-[Route("[controller]/[action]")]
+[Route("Admin[controller]/[action]")]
 [Authorize(Roles = "Admin")]
 [ApiController]
 [UnitOfWork(typeof(ListeningDbContext))]

@@ -2,7 +2,7 @@
 
 namespace Listening.Admin.WebAPI.Albums;
 
-[Route("[controller]/[action]")]
+[Route("Admin[controller]/[action]")]
 [ApiController]
 [Authorize(Roles = "Admin")]
 [UnitOfWork(typeof(ListeningDbContext))]

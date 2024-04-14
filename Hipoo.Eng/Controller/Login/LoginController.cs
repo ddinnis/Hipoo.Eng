@@ -93,5 +93,21 @@ namespace IdentityService.WebAPI.Controller.Login
                 return BadRequest(result.Errors.SumErrors());
             }
         }
+
+        [AllowAnonymous]
+        [HttpPost]
+        public async Task<ActionResult<string>> LoginByUserNameAndPwd(
+    LoginByUserNameAndPwdRequest req)
+        {
+            (var checkResult, var token) = await _identityService.LoginByUserNameAndPwdAsync(req.UserName, req.Password);
+            if (checkResult.Succeeded) return token!;
+            else if (checkResult.IsLockedOut)//尝试登录次数太多
+                return StatusCode((int)HttpStatusCode.Locked, "用户已经被锁定");
+            else
+            {
+                string msg = checkResult.ToString();
+                return BadRequest("登录失败" + msg);
+            }
+        }
     }
 }

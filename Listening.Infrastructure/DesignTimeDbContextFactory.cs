@@ -1,6 +1,7 @@
 ﻿using CommonInitializer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
+using Listening.Infrastructure;
 
 
 namespace Listening.Infrastructure

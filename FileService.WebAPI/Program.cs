@@ -6,14 +6,14 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.ConfigureExtraServices(new InitializerOptions
 {
-    EventBusQueueName = "IdentityService.WebAPI",
-    LogFilePath = "d:/temp/IdentityService.log"
+    EventBusQueueName = "FileService.WebAPI",
+    LogFilePath = "d:/temp/FileService.log"
 });
 builder.Services.AddControllers();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(opt => {
-    opt.SwaggerDoc("v1", new() { Title = "IdentityService.WebAPI", Version = "v1" });
+    opt.SwaggerDoc("v1", new() { Title = "FileService.WebAPI", Version = "v1" });
 });
 
 builder.Services

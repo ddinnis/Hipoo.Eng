@@ -25,6 +25,7 @@
     <ProjectReference Include="..\Common.Infrastructure\Common.Infrastructure.csproj" />
     <ProjectReference Include="..\Listening.Domain\Listening.Domain.csproj" />
     <ProjectReference Include="..\Listening.Infrastructure\Listening.Infrastructure.csproj" />
+    <ProjectReference Include="..\MediaEncoder.Domain\MediaEncoder.Domain.csproj" />
   </ItemGroup>
 
 </Project>

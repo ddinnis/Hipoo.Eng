@@ -46,7 +46,7 @@ namespace FileService.Infrastructure.Service
             await content.CopyToAsync(stream, cancellationToken);
 
             var req = _httpContextAccessor.HttpContext.Request;
-            string fileUrl = req.Scheme + "://" + req.Host + "/FileService/" + key;
+            string fileUrl = req.Scheme + "://" + req.Host + "/FileService/uploads/" + key;
             // string fileUrl = $"{req.Scheme}://{req.Host}/uploads/{key}";
             return new Uri(fileUrl);
         }

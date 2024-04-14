@@ -67,7 +67,7 @@ namespace IdentityService.WebAPI.Controller.Admin
         }
 
 
-        [HttpPost]
+        [HttpPut]
         [Route("{id}")]
         public async Task<ActionResult> UpdateAdminUser(Guid id, EditAdminUserRequest req) 
         {

@@ -16,8 +16,8 @@ namespace FileService.Domain
 
         public FSDomainService(IFSRepository repository, IEnumerable<IStorageClient> storageClients )
         {
-            _backupStorage = storageClients.First(x=>x.StorageType == StorageType.Public);
-            _remoteStorage = storageClients.First(x => x.StorageType == StorageType.Backup);
+            _backupStorage = storageClients.First(x=>x.StorageType == StorageType.Backup);
+            _remoteStorage = storageClients.First(x => x.StorageType == StorageType.Public);
             _repository = repository;
         }
 

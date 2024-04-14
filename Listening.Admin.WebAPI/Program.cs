@@ -1,5 +1,6 @@
 using CommonInitializer;
 using Listening.Admin.WebAPI;
+using Listening.Admin.WebAPI.EventHandler;
 using Listening.Admin.WebAPI.Hubs;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -18,11 +19,12 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new() { Title = "Listening.Admin.WebAPI", Version = "v1" });
+    c.ResolveConflictingActions(apiDescriptions => apiDescriptions.First());
 });
 
 builder.Services.AddScoped<EncodingEpisodeHelper>();
 builder.Services.AddSignalR();
-
+builder.Services.AddTransient<MediaEncodingStatusChangeIntegrationHandler>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
