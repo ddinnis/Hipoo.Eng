@@ -4,7 +4,7 @@ using IdentityService.Domain;
 
 namespace IdentityService.WebAPI.Event
 {
-    public class ResetPasswordEventHandler: ICapSubscribe, ISubscriberService<ResetPasswordEvent>
+public class ResetPasswordEventHandler: ICapSubscribe, ISubscriberService<ResetPasswordEvent>
     {
         private readonly ISmsSender _smsSender;
 
