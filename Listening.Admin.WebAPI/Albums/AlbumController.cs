@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Listening.Admin.WebAPI.Categories;
+using Microsoft.AspNetCore.Authorization;
+using System.Net;
 
 namespace Listening.Admin.WebAPI.Albums;
 
-[Route("Admin[controller]/[action]")]
+[Route("[controller]/[action]")]
 [ApiController]
 [Authorize(Roles = "Admin")]
 [UnitOfWork(typeof(ListeningDbContext))]
@@ -30,7 +32,7 @@ public class AlbumController : ControllerBase
     [Route("{categoryId}")]
     public Task<Album[]> FindByCategoryId([RequiredGuid] Guid categoryId)
     {
-        return _repository.GetAlbumsByCategoryIdAsync(categoryId);
+       return _repository.GetAlbumsByCategoryIdAsync(categoryId);
     }
 
     [HttpPost]
@@ -44,42 +46,69 @@ public class AlbumController : ControllerBase
 
     [HttpPut]
     [Route("{id}")]
-    public async Task<ActionResult> Update([RequiredGuid] Guid id, AlbumUpdateRequest request)
+    public async Task<ResultObject> Update([RequiredGuid] Guid id, AlbumUpdateRequest request)
     {
         var album = await _repository.GetAlbumByIdAsync(id);
         if (album == null)
         {
-            return NotFound("id没找到相应Album");
+            return new ResultObject
+            {
+                Code = (int)HttpStatusCode.NotFound,
+                Ok = true,
+                Message = "id没找到相应Album",
+            };
         }
         album.ChangeName(request.Name);
-        return Ok();
+        return new ResultObject
+        {
+            Code = (int)HttpStatusCode.OK,
+            Ok = true
+        };
     }
 
     [HttpDelete]
     [Route("{id}")]
-    public async Task<ActionResult> DeleteById([RequiredGuid] Guid id)
+    public async Task<ResultObject> DeleteById([RequiredGuid] Guid id)
     {
         var album = await _repository.GetAlbumByIdAsync(id);
         if (album == null)
         {
             //这样做仍然是幂等的，因为“调用N次，确保服务器处于与第一次调用相同的状态。”与响应无关
-            return NotFound($"没有Id={id}的Album");
+            return new ResultObject
+            {
+                Code = (int)HttpStatusCode.NotFound,
+                Ok = true,
+                Message = $"没有Id={id}的Album",
+            };
         }
         album.SoftDelete();
-        return Ok();
+        return new ResultObject
+        {
+            Code = (int)HttpStatusCode.OK,
+            Ok = true
+        };
     }
 
     [HttpPut]
     [Route("{id}")]
-    public async Task<ActionResult> Hide([RequiredGuid] Guid id)
+    public async Task<ResultObject> Hide([RequiredGuid] Guid id)
     {
         var album = await _repository.GetAlbumByIdAsync(id);
         if (album == null)
         {
-            return NotFound($"没有Id={id}的Album");
+            return new ResultObject
+            {
+                Code = (int)HttpStatusCode.NotFound,
+                Ok = true,
+                Message = $"没有Id={id}的Album",
+            };
         }
         album.Hide();
-        return Ok();
+        return new ResultObject
+        {
+            Code = (int)HttpStatusCode.OK,
+            Ok = true
+        };
     }
 
     [HttpPut]

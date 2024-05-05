@@ -47,7 +47,7 @@ namespace IdentityService.WebAPI.Controller.Login
 
         [HttpGet]
         [Authorize]
-        public async Task<ActionResult<UserResponse>> GetUserInfo()
+        public async Task<ActionResult<LoginVM>> GetUserInfo()
         {
             string userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             var user = await _repository.FindByIdAsync(Guid.Parse(userId));
@@ -55,7 +55,14 @@ namespace IdentityService.WebAPI.Controller.Login
             {
                 return NotFound();
             }
-            return new UserResponse(user.Id, user.PhoneNumber, user.CreationTime);
+            var result =  new UserResponse(user.Id,user.UserName, user.PhoneNumber, user.CreationTime);
+            return new LoginVM()
+            {
+                Code = (int)HttpStatusCode.OK,
+                Data = result!,
+                Message = "获取token成功",
+                Ok = true
+            };
         }
 
         [HttpPost]
@@ -96,11 +103,19 @@ namespace IdentityService.WebAPI.Controller.Login
 
         [AllowAnonymous]
         [HttpPost]
-        public async Task<ActionResult<string>> LoginByUserNameAndPwd(
+        public async Task<ActionResult<LoginVM>> LoginByUserNameAndPwd(
     LoginByUserNameAndPwdRequest req)
         {
             (var checkResult, var token) = await _identityService.LoginByUserNameAndPwdAsync(req.UserName, req.Password);
-            if (checkResult.Succeeded) return token!;
+            if (checkResult.Succeeded) {
+                return new LoginVM()
+                {
+                    Code = (int)HttpStatusCode.OK,
+                    Data = token!,
+                    Message = "获取token成功",
+                    Ok = true
+                };
+            }
             else if (checkResult.IsLockedOut)//尝试登录次数太多
                 return StatusCode((int)HttpStatusCode.Locked, "用户已经被锁定");
             else

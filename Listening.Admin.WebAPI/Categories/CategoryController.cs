@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Listening.Domain.Entities;
+using Microsoft.AspNetCore.Authorization;
+using System.Net;
 
 namespace Listening.Admin.WebAPI.Categories;
-[Route("Admin[controller]/[action]")]
+[Route("[controller]/[action]")]
 [Authorize(Roles = "Admin")]
 [ApiController]
 [UnitOfWork(typeof(ListeningDbContext))]
@@ -41,38 +43,61 @@ public class CategoryController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<ActionResult<Guid>> Add(CategoryAddRequest req)
+    public async Task<ActionResult<ResultObject>> Add(CategoryAddRequest req)
     {
         var category = await domainService.AddCategoryAsync(req.Name, req.CoverUrl);
         dbContext.Add(category);
-        return category.Id;
-    }
+        return new ResultObject
+        {
+            Code = (int)HttpStatusCode.OK,
+            Data = category.Id,
+            Ok = true,
+        };
+    } 
 
     [HttpPut]
     [Route("{id}")]
-    public async Task<ActionResult> Update([RequiredGuid] Guid id, CategoryUpdateRequest request)
+    public async Task<ResultObject> Update([RequiredGuid] Guid id, CategoryUpdateRequest request)
     {
         var cat = await repository.GetCategoryByIdAsync(id);
         if (cat == null)
         {
-            return NotFound("id不存在");
+            return new ResultObject
+            {
+                Code = (int)HttpStatusCode.NotFound,
+                Ok = true,
+                Message = "id不存在"
+            };
         }
         cat.ChangeName(request.Name);
         cat.ChangeCoverUrl(request.CoverUrl);
-        return Ok();
+        return new ResultObject
+        {
+            Code = (int)HttpStatusCode.OK,
+            Ok = true,
+        };
     }
 
     [HttpDelete]
     [Route("{id}")]
-    public async Task<ActionResult> DeleteById([RequiredGuid] Guid id)
+    public async Task<ResultObject> DeleteById([RequiredGuid] Guid id)
     {
         var cat = await repository.GetCategoryByIdAsync(id);
         if (cat == null)
         {
-            return NotFound($"没有Id={id}的Category");
+            return new ResultObject
+            {
+                Code = (int)HttpStatusCode.NotFound,
+                Ok = true,
+                Message = "$\"没有Id={id}的Category\""
+            };
         }
         cat.SoftDelete();//软删除
-        return Ok();
+        return new ResultObject
+        {
+            Code = (int)HttpStatusCode.OK,
+            Ok = true,
+        };
     }
 
     [HttpPut]

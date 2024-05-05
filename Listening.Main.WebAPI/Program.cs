@@ -1,6 +1,4 @@
 using CommonInitializer;
-using Listening.Admin.WebAPI;
-using Listening.Admin.WebAPI.Hubs;
 using Listening.Domain;
 using Listening.Infrastructure;
 
@@ -14,14 +12,14 @@ builder.ConfigureExtraServices(new InitializerOptions
 });
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddScoped<EncodingEpisodeHelper>();
+//builder.Services.AddScoped<EncodingEpisodeHelper>();
 builder.Services.AddScoped<IListeningRepository, ListeningRepository>();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new() { Title = "Listening.Main.WebAPI", Version = "v1" });
-    c.ResolveConflictingActions(apiDescriptions => apiDescriptions.First());
+    //c.ResolveConflictingActions(apiDescriptions => apiDescriptions.First());
 });
 
 builder.Services.AddSignalR();
@@ -35,7 +33,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Listening.Main.WebAPI v1"));
 }
-app.MapHub<EpisodeEncodingStatusHub>("/Hubs/EpisodeEncodingStatusHub");
+
 
 app.UseHttpsRedirection();
 app.MapControllers();

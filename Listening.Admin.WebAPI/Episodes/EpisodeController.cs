@@ -1,8 +1,11 @@
 ﻿using DotNetCore.CAP;
+using Listening.Admin.WebAPI.Categories;
 using Microsoft.AspNetCore.Authorization;
+using System.Net;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Listening.Admin.WebAPI.Episodes;
-[Route("Admin[controller]/[action]")]
+[Route("[controller]/[action]")]
 [ApiController]
 [Authorize(Roles = "Admin")]
 [UnitOfWork(typeof(ListeningDbContext))]
@@ -25,14 +28,19 @@ public class EpisodeController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<ActionResult<Guid>> Add(EpisodeAddRequest req)
+    public async Task<ResultObject> Add(EpisodeAddRequest req)
     {
         //如果上传的是m4a，不用转码，直接存到数据库
         if (req.AudioUrl.ToString().EndsWith("m4a", StringComparison.OrdinalIgnoreCase))
         {
             Episode episode = await domainService.AddEpisodeAsync(req.Name, req.AlbumId, req.AudioUrl, req.DurationInSecond, req.SubtitleType, req.Subtitle);
             dbContext.Add(episode);
-            return episode.Id;
+            return new ResultObject
+            {
+                Ok = true,
+                StatusCode = (int)HttpStatusCode.OK,
+                Data = episode.Id,
+            };
         }
         else
         {
@@ -44,7 +52,12 @@ public class EpisodeController : ControllerBase
 
             //通知转码
             publisher.Publish("MediaEncoding.Created", new { MediaId = episodeId, MediaUrl = req.AudioUrl, OutputFormat = "m4a", SourceSystem = "Listening" });//启动转码
-            return episodeId;
+            return new ResultObject
+            {
+                Ok = true,
+                StatusCode = (int)HttpStatusCode.OK,
+                Data = episodeId
+            };
         }
     }
 

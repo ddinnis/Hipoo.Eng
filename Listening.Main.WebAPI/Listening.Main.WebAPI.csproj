@@ -11,12 +11,12 @@
 	  <PackageReference Include="DotNetCore.CAP.Dashboard" Version="8.1.0" />
 	  <PackageReference Include="DotNetCore.CAP.RabbitMQ" Version="8.1.0" />
 	  <PackageReference Include="DotNetCore.CAP.SqlServer" Version="8.1.0" />
-	  <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
 	  <PackageReference Include="RabbitMQ.Client" Version="6.8.1" />
 
 	  <PackageReference Include="Serilog.Extensions.Logging.File" Version="3.0.0" />
 	  <PackageReference Include="Serilog.Sinks.Console" Version="5.0.1" />
 	  <PackageReference Include="Serilog.Sinks.File" Version="5.0.0" />
+	  <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
   </ItemGroup>
 
   <ItemGroup>
@@ -25,7 +25,6 @@
     <ProjectReference Include="..\Common.Domain\Common.Domain.csproj" />
     <ProjectReference Include="..\Common.Infrastructure\Common.Infrastructure.csproj" />
     <ProjectReference Include="..\CommonInitializer\CommonInitializer.csproj" />
-    <ProjectReference Include="..\Listening.Admin.WebAPI\Listening.Admin.WebAPI.csproj" />
     <ProjectReference Include="..\Listening.Domain\Listening.Domain.csproj" />
     <ProjectReference Include="..\Listening.Infrastructure\Listening.Infrastructure.csproj" />
   </ItemGroup>
