@@ -12,19 +12,19 @@ namespace Listening.Domain
         }
 
 
-        public async Task<Album> AddAlbumAsync(Guid categoryId, MultilingualString name) 
-        { 
+        public async Task<Album> AddAlbumAsync(Guid categoryId, MultilingualString name)
+        {
             int maxSeq = await _repository.GetMaxSeqOfAlbumsAsync(categoryId);
             Guid guid = Guid.NewGuid();
             return Album.Create(guid, maxSeq + 1, name, categoryId);
         }
 
         public async Task SortAlbumsAsync(Guid categoryId, Guid[] sortedAlbumIds)
-        { 
+        {
             var alums = await _repository.GetAlbumsByCategoryIdAsync(categoryId);
             var idsInDB = alums.Select(x => x.Id);
 
-            if(!idsInDB.SequenceIgnoredEqual(sortedAlbumIds))
+            if (!idsInDB.SequenceIgnoredEqual(sortedAlbumIds))
             {
                 throw new Exception($"提交的待排序Id中必须是categoryId={categoryId}分类下所有的Id");
             }
@@ -41,7 +41,7 @@ namespace Listening.Domain
             }
         }
 
-        public async Task<Category> AddCategoryAsync(MultilingualString name, Uri coverUrl) 
+        public async Task<Category> AddCategoryAsync(MultilingualString name, Uri coverUrl)
         {
             var maxSeq = await _repository.GetMaxSeqOfCategoriesAsync();
             var id = Guid.NewGuid();
@@ -49,7 +49,7 @@ namespace Listening.Domain
             return cate;
         }
 
-        public async Task SortCategoriesAsync(Guid[] sortedCategoryIds) 
+        public async Task SortCategoriesAsync(Guid[] sortedCategoryIds)
         {
             var categories = await _repository.GetCategoriesAsync();
             var idsInDB = categories.Select(a => a.Id);
@@ -73,10 +73,10 @@ namespace Listening.Domain
 
         public async Task<Episode> AddEpisodeAsync(MultilingualString name,
             Guid albumId, Uri audioUrl, double durationInSecond,
-            string subtitleType, string subtitle) 
+            string subtitleType, string subtitle)
         {
             int maxSeq = await _repository.GetMaxSeqOfEpisodesAsync(albumId);
-            Guid id = Guid.NewGuid() ;
+            Guid id = Guid.NewGuid();
             var builder = new Episode.Builder();
             builder.Id(id).SequenceNumber(maxSeq + 1).Name(name).AlbumId(albumId)
                 .AudioUrl(audioUrl).DurationInSecond(durationInSecond)
@@ -87,8 +87,8 @@ namespace Listening.Domain
         public async Task SortEpisodesAsync(Guid albumId, Guid[] sortedEpisodeIds)
         {
             var episodes = await _repository.GetEpisodesByAlbumIdAsync(albumId);
-            var idsInDb = episodes.Select(e=>e.Id);
-            if (!sortedEpisodeIds.SequenceIgnoredEqual(idsInDb)) 
+            var idsInDb = episodes.Select(e => e.Id);
+            if (!sortedEpisodeIds.SequenceIgnoredEqual(idsInDb))
             {
                 throw new Exception($"提交的待排序Id中必须是albumId={albumId}专辑下所有的Id");
             }
@@ -102,11 +102,12 @@ namespace Listening.Domain
                     episode.ChangeSequenceNumber(seqNum);
                     seqNum++;
                 }
-                else 
+                else
                 {
                     throw new Exception($"episodeId={episodeId}不存在");
                 }
             }
         }
+
     }
 }

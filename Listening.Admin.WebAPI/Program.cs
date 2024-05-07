@@ -19,7 +19,6 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v2", new() { Title = "Listening.Admin.WebAPI", Version = "v2" });
-    //c.ResolveConflictingActions(apiDescriptions => apiDescriptions.First());
 });
 
 builder.Services.AddScoped<EncodingEpisodeHelper>();
@@ -38,6 +37,8 @@ app.MapHub<EpisodeEncodingStatusHub>("/Hubs/EpisodeEncodingStatusHub");
 
 app.UseHttpsRedirection();
 app.MapControllers();
+
+app.UseStaticFiles();
 
 app.UseCors();//∆Ù”√Cors
 app.UseForwardedHeaders();

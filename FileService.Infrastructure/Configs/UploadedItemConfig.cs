@@ -1,6 +1,5 @@
 ﻿using FileService.Domain.Entities;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Microsoft.EntityFrameworkCore;
 
 
 namespace FileService.Infrastructure.Configs
