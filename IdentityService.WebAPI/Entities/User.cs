@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Common.Domain.Models;
+using Microsoft.AspNetCore.Identity;
 
 
 namespace IdentityService.Domain.Entities

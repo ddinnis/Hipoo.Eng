@@ -1,4 +1,5 @@
-﻿using IdentityService.Domain;
+﻿
+using Common.Domain.Models;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 

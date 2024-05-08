@@ -1,4 +1,4 @@
-﻿using IdentityService.Domain;
+﻿using Common.Domain.Models;
 using System.Linq.Expressions;
 
 namespace Microsoft.EntityFrameworkCore
