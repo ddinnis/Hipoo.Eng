@@ -2,7 +2,7 @@
 using System.Security.Cryptography;
 using System.Text;
 
-namespace Zack.Commons
+namespace Commons.Common
 {
     public static class HashHelper
     {

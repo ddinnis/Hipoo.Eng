@@ -1,7 +1,4 @@
-﻿using FluentValidation;
-using Microsoft.EntityFrameworkCore;
-
-namespace Listening.Admin.WebAPI.Albums;
+﻿namespace Listening.Admin.WebAPI.Albums;
 
 public record AlbumAddRequest(MultilingualString Name, Guid CategoryId);
 

@@ -57,11 +57,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FileService.SDK.NETCore", "
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SearchService", "SearchService", "{91D6BCF0-8AED-4490-8B9D-2D6A5BF92686}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SearchService.Domain", "SearchService.Domain\SearchService.Domain.csproj", "{C1FC3198-6E32-4C9D-B550-3E9ACAE699D3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SearchService.Domain", "SearchService.Domain\SearchService.Domain.csproj", "{C1FC3198-6E32-4C9D-B550-3E9ACAE699D3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SearchService.Infrastructure", "SearchService.Infrastructure\SearchService.Infrastructure.csproj", "{28A00267-3550-42D1-9344-DF8BA42B0781}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SearchService.Infrastructure", "SearchService.Infrastructure\SearchService.Infrastructure.csproj", "{28A00267-3550-42D1-9344-DF8BA42B0781}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SearchService.WebAPI", "SearchService.WebAPI\SearchService.WebAPI.csproj", "{67F1F569-4DE4-4CA6-9047-6A19D6F87794}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SearchService.WebAPI", "SearchService.WebAPI\SearchService.WebAPI.csproj", "{67F1F569-4DE4-4CA6-9047-6A19D6F87794}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

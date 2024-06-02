@@ -1,6 +1,6 @@
 ﻿using System.Net;
 
-namespace Common.Common
+namespace Commons.Common
 {
     public static class HttpHelper
     {

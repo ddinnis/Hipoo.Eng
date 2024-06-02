@@ -4,8 +4,6 @@ using MediaEncoder.Infrastructure;
 using RedLockNet.SERedis;
 using RedLockNet.SERedis.Configuration;
 using StackExchange.Redis;
-using Common.Common;
-using Zack.Commons;
 using DotNetCore.CAP;
 using MediaEncoder.Domain;
 using Microsoft.Extensions.Options;
@@ -13,6 +11,8 @@ using MediaEncoder.WebAPI.Options;
 using Common.JWT;
 using FileService.SDK.NETCore;
 using System.Net;
+using Commons.Commons;
+using Commons.Common;
 
 namespace MediaEncoder.WebAPI
 {

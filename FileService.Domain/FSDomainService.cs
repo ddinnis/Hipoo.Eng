@@ -1,10 +1,6 @@
-﻿using FileService.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Zack.Commons;
+﻿using Commons.Common;
+using FileService.Domain.Entities;
+
 
 namespace FileService.Domain
 {

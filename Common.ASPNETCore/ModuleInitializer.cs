@@ -2,7 +2,7 @@
 using Commons.Commons;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Zack.ASPNETCore
+namespace Commons.ASPNETCore
 {
     class ModuleInitializer : IModuleInitializer
     {

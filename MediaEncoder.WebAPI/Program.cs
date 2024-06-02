@@ -1,14 +1,10 @@
 using Common.JWT;
 using CommonInitializer;
 using Listening.Admin.WebAPI;
-using Listening.Admin.WebAPI.EventHandler;
-using MediaEncoder.Domain;
-using MediaEncoder.Infrastructure;
 using MediaEncoder.WebAPI;
 using MediaEncoder.WebAPI.EventHandlers;
 using MediaEncoder.WebAPI.Options;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
