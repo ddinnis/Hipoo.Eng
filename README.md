@@ -1,0 +1,2 @@
+- 精听前端模块：https://github.com/ddinnis/Hipoo.ListeningAdminUI
+- 后台管理模块：https://github.com/ddinnis/Hipoo.ListeningMainUI
